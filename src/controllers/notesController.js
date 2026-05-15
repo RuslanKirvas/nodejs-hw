@@ -59,8 +59,8 @@ export const getNoteById = async (req, res, next) => {
 
 export const createNote = async (req, res, next) => {
   try {
-    const { title, content } = req.body;
-    const newNote = await Note.create({ title, content });
+    const { title, content, tag } = req.body;
+    const newNote = await Note.create({ title, content, tag });
     res.status(201).json(newNote);
   } catch (error) {
     next(error);

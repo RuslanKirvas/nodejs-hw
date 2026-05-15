@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import {Note} from "../models/note.js";
 
 export async function connectMongoDB() {
   try {
@@ -9,7 +10,10 @@ export async function connectMongoDB() {
     }
 
     await mongoose.connect(mongoUrl);
+
+
     console.log("✅ MongoDB connection established successfully");
+     await Note.syncIndexes();
   } catch (error) {
     console.error("❌ MongoDB connection error:", error.message);
     process.exit(1);

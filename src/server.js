@@ -5,6 +5,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import "dotenv/config";
+import {errors } from "celebrate";
 import { connectMongoDB } from "./db/connectMongoDB.js";
 import { notFoundHandler } from "./middleware/notFoundHandler.js";
 import { errorHandler } from "./middleware/errorHandler.js";
@@ -26,8 +27,10 @@ app.use(express.json());
 // Маршруты
 app.use(notesRoutes);
 
-// 404 и errorHandler
+
 app.use(notFoundHandler);
+
+app.use(errors());
 app.use(errorHandler);
 
 // Запуск сервера

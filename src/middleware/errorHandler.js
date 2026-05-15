@@ -1,7 +1,10 @@
 import { HttpError } from "http-errors";
 
+
 export const errorHandler = (err, req, res, _next) => {
   const isProd = process.env.NODE_ENV === "production";
+
+
 
   // Логирование
   if (req.log && typeof req.log.error === "function") {

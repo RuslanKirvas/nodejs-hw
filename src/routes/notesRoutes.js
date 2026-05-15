@@ -1,22 +1,16 @@
 
-import {Router} from 'express'
 
-import {getAllNotes , getNoteById, createNote, deleteNote, updateNote} from '../controllers/notesController.js'
-const router =  Router()
+import { Router } from "express";
+import { celebrate } from "celebrate";
+import { getAllNotes, getNoteById, createNote, updateNote, deleteNote } from "../controllers/notesController.js";
+import { getAllNotesSchema, createNoteSchema, noteIdSchema, updateNoteSchema } from "../validations/notesValidation.js";
 
+const router = Router();
 
-router.get("/notes",getAllNotes);
-
-// GET /notes/:noteId - получить одну заметку по ID
-router.get("/notes/:noteId", getNoteById );
-
-// POST /notes - создать заметку
-router.post("/notes", createNote );
-
-// PATCH /notes/:noteId - обновить заметку
-router.patch("/notes/:noteId", updateNote);
-
-// DELETE /notes/:noteId - удалить заметку
-router.delete("/notes/:noteId", deleteNote);
+router.get("/notes", celebrate(getAllNotesSchema), getAllNotes);
+router.get("/notes/:noteId", celebrate(noteIdSchema), getNoteById);
+router.post("/notes", celebrate(createNoteSchema), createNote);
+router.patch("/notes/:noteId", celebrate(updateNoteSchema), updateNote);
+router.delete("/notes/:noteId", celebrate(noteIdSchema), deleteNote);
 
 export default router;

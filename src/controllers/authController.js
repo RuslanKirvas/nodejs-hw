@@ -22,7 +22,7 @@ const  session = await createSession(newUser._id);
 setSessionCookies(res, session)
 
 
-res.status(201).json({newUser})
+res.status(201).json(newUser)
 };
 
 export const loginUser = async (req, res) => {
@@ -56,7 +56,7 @@ res.clearCookie("sessionId")
   res.status(204).send()
 };
 
-export const refreshSession = async (req, res) => {
+export const refreshUserSession = async (req, res,) => {
   const {sessionId, refreshToken} = req.cookies;
   if(!sessionId || !refreshToken) {
     throw createHttpError(401, "Invalid session ")
@@ -87,7 +87,7 @@ await session.deleteOne();
 const newSession = await createSession(session.userId);
 setSessionCookies(res, newSession)
 
-  res.status(200). json({})
+  res.status(200). json({ message: "Session refreshed"})
 }
 
 

@@ -24,7 +24,7 @@ export const getAllNotes = async (req, res, next) => {
 
        const [ totalNotes ,notes ]= await Promise.all([
       notesQuery.clone().countDocuments(),
-    notesQuery.skip(skip).limit(limit),
+    notesQuery.skip(skip).limit(limit).exec(),
 
     ])
 
@@ -72,7 +72,7 @@ export const updateNote = async (req, res, next) => {
     const { noteId } = req.params;
     const { title, content, tag } = req.body;
 
-    const updatedNote = await Note.findByIdAndUpdate(
+    const updatedNote = await Note.findOneAndUpdate(
 
       { _id: noteId, userId: req.user._id },
       { title, content, tag },

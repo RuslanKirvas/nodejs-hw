@@ -9,7 +9,7 @@ export const updateUserAvatar = async (req, res, next) => {
       throw createHttpError(400, "No file");
     }
 
-   
+
     const result = await saveFileToCloudinary(req.file.buffer, req.user._id);
     if (!result) {
         throw createHttpError(500, "Failed to upload image");
@@ -19,7 +19,7 @@ export const updateUserAvatar = async (req, res, next) => {
     const updatedUser = await User.findByIdAndUpdate(
       { _id: req.user._id },
       { avatar: result.secure_url },
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     );
 
     if (!updatedUser) {

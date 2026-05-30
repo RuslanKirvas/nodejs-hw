@@ -20,7 +20,7 @@ export const loginUserSchema = {
 
 export const requestResetEmailSchema = {
     [Segments.BODY]: Joi.object({
-      email: Joi.string().min(6).email().required(),
+      email: Joi.string().min().email().required(),
 
   })
 }

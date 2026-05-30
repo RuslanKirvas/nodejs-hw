@@ -13,6 +13,7 @@ import notesRoutes from "./routes/notesRoutes.js";
 import { logger } from "./middleware/logger.js";
 import authRoutes from "./routes/authRoutes.js";
 import cookieParser from "cookie-parser";
+import userRoutes from "./routes/userRoutes.js";
 
 const app = express();
 
@@ -30,6 +31,8 @@ app.use(cookieParser());
 // Маршруты
 app.use(notesRoutes);
 app.use(authRoutes);
+app.use(userRoutes);
+
 
 
 
